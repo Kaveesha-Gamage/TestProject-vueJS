@@ -1,9 +1,7 @@
 <script setup>
-import ToDoList from './components/ToDoList.vue'
+import Calculator from './components/Calculator.vue'
 </script>
 
 <template>
-  <ToDoList />
+  <Calculator />
 </template>
-
-
