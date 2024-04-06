@@ -1,9 +1,7 @@
 <script setup>
-import ToDoList from './components/ToDoList.vue'
+import PasswordGenerator from './components/PasswordGenerator.vue'
 </script>
 
 <template>
-  <ToDoList />
+  <PasswordGenerator />
 </template>
-
-
