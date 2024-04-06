@@ -1,106 +1,91 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
-const display = ref("0");
-
-const appendToDisplay = (value) => {
-  if (display.value === "0" && value !== ".") {
-    display.value = value;
-  } else {
-    display.value += value;
+const items = ref([
+  {
+    title: "What is HTML?",
+    content:
+      "The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser. It defines the content and structure of web content. It is often assisted by technologies such as Cascading Style Sheets and scripting languages such as JavaScript.",
+    open: false,
+  },
+  {
+    title: "What is CSS?",
+    content:
+      "Cascading Style Sheets is a style sheet language used for specifying the presentation and styling of a document written in a markup language such as HTML or XML. CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript.",
+    open: false,
+  },
+  {
+    title: "What is JS?",
+    content:
+      "JavaScript, often abbreviated as JS, is a programming language and core technology of the World Wide Web, alongside HTML and CSS. As of 2023, 98.7% of websites use JavaScript on the client side for webpage behavior, often incorporating third-party libraries.",
+    open: false,
+  },
+  {
+    title: "What is Python?",
+    content:
+      "Python is a programming language that is interpreted, object-oriented, and considered to be high-level too. What is Python? Python is one of the easiest yet most useful programming languages which is widely used in the software industry. People use Python for Competitive Programming, Web Development, and creating software.",
+    open: false,
   }
-};
+]);
 
-const calculate = () => {
-  try {
-    display.value = eval(display.value).toString();
-  } catch (error) {
-    display.value = "Error";
-  }
-};
-
-// Computed property for dynamic class binding
-const displayClass = computed(() => {
-  return display.value.length > 12 ? "small-text" : "";
-});
-
-const clearDisplay = () => {
-  display.value = "0";
+const toggleAccordion = (index) => {
+  items.value = items.value.map((item, i) => ({
+    ...item,
+    open: i === index ? !item.open : false,
+  }));
 };
 </script>
 
 <template>
-  <div>
-    <div class="calculator">
-      <input v-model="display" :class="displayClass" readonly />
-
-      <div class="buttons">
-        <button @click="appendToDisplay('7')">7</button>
-        <button @click="appendToDisplay('8')">8</button>
-        <button @click="appendToDisplay('9')">9</button>
-        <button @click="appendToDisplay('/')">/</button>
-
-        <button @click="appendToDisplay('4')">4</button>
-        <button @click="appendToDisplay('5')">5</button>
-        <button @click="appendToDisplay('6')">6</button>
-        <button @click="appendToDisplay('*')">*</button>
-
-        <button @click="appendToDisplay('1')">1</button>
-        <button @click="appendToDisplay('2')">2</button>
-        <button @click="appendToDisplay('3')">3</button>
-        <button @click="appendToDisplay('-')">-</button>
-
-        <button @click="appendToDisplay('0')">0</button>
-        <button @click="appendToDisplay('.')">.</button>
-        <button @click="calculate()">=</button>
-        <button @click="appendToDisplay('+')">+</button>
+  <div class="accordion-container">
+    <div v-for="(item, index) in items" :key="index" class="accordion">
+      <div class="accordion-header" @click="toggleAccordion(index)">
+        {{ item.title }}
+        <span class="arrow-icon">{{ item.open ? "▼" : "▶" }}</span>
       </div>
-
-      <button @click="clearDisplay" class="clear-button">C</button>
+      <div v-show="item.open" class="accordion-content">
+        {{ item.content }}
+      </div>
     </div>
   </div>
 </template>
 
-<style>
-input {
-  padding: 10px 20px;
-  margin-bottom: 20px;
+<style scoped>
+.accordion-container {
+  max-width: 600px;
+  margin: 50px auto;
 }
 
-.calculator {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.display {
-  width: 100%;
+.accordion {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
   margin-bottom: 10px;
-  padding: 10px;
-  font-size: 18px;
-  text-align: right;
 }
 
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+.accordion-header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  font-size: 18px;
+.arrow-icon {
+  font-size: 20px;
 }
 
-.clear-button {
-  width: 100%;
-  margin-top: 10px;
+.accordion-content {
+  padding: 15px;
+  display: none;
+  border-top: 1px solid #ddd;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
-.small-text {
-  font-size: 14px;
+.accordion-content[style] {
+  display: block;
 }
 </style>
