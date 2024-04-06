@@ -1,7 +1,7 @@
 <script setup>
-import Calculator from './components/Calculator.vue'
+import formValidation from './components/formValidation.vue'
 </script>
 
 <template>
-  <Calculator />
+  <formValidation />
 </template>
