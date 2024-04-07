@@ -1,7 +1,7 @@
 <script setup>
-import jokes from './components/jokes.vue'
+import GithubUsersSearch from './components/GithubUsersSearch.vue'
 </script>
 
 <template>
-  <jokes />
+  <GithubUsersSearch />
 </template>
