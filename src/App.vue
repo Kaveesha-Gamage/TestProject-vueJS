@@ -1,7 +1,7 @@
 <script setup>
-import PasswordGenerator from './components/PasswordGenerator.vue'
+import jokes from './components/jokes.vue'
 </script>
 
 <template>
-  <PasswordGenerator />
+  <jokes />
 </template>
