@@ -1,7 +1,7 @@
 <script setup>
-import WikiClone from './components/WikiClone.vue'
+import login from './components/login.vue'
 </script>
 
 <template>
-  <WikiClone />
+  <login/>
 </template>
